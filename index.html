@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penjana Laporan iGFMAS (Salin Maklumat Lengkap)</title>
+    <title>Penjana Laporan iGFMAS (GitHub Markdown Layout)</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
@@ -14,12 +14,12 @@
             <div class="bg-blue-600 p-2 rounded-lg text-xl font-bold tracking-wider">iG</div>
             <div>
                 <h1 class="text-lg font-bold leading-tight">Sistem Penjana Laporan Capaian</h1>
-                <p class="text-xs text-slate-300">Format Standard Laporan LA-2026 (Salin Info Penuh)</p>
+                <p class="text-xs text-slate-300">Format Laporan Khas GitHub Markdown Layout</p>
             </div>
         </div>
         <div class="bg-blue-900/50 px-4 py-2 rounded-lg border border-blue-700/50 text-right">
-            <span class="text-xs block text-slate-400 font-medium">Format Eksport</span>
-            <span class="text-sm font-mono font-bold text-blue-300">INFO PENAPISAN LENGKAP</span>
+            <span class="text-xs block text-slate-400 font-medium">Format Salin</span>
+            <span class="text-sm font-mono font-bold text-emerald-400">GITHUB MARKDOWN (.MD)</span>
         </div>
     </header>
 
@@ -27,10 +27,10 @@
         
         <section class="bg-white rounded-2xl p-6 shadow-xs border border-slate-200/80">
             <h2 class="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
-                <span>📋</span> Salin Data Beserta Maklumat IC & Bulan
+                <span>🐙</span> Optimum untuk GitHub Readme & Issues
             </h2>
             <p class="text-slate-600 text-sm leading-relaxed">
-                Apabila butang <strong>"Salin Data"</strong> ditekan, maklumat metatada seperti <strong>No. IC yang ditapis, Bulan, dan Tahun</strong> akan diletakkan secara automatik di bahagian atas data sel untuk memudahkan tugasan tampalan (*paste*) rekod ke Microsoft Excel.
+                Butang <strong>"Salin Data"</strong> di bawah kini ditukar untuk menghasilkan kod jadual Markdown lengkap berserta blok warna logik. Apabila anda melakukan <em>paste</em> ke dalam editor GitHub, ia akan bertukar menjadi jadual yang kemas, bergaris, dan tersusun.
             </p>
         </section>
 
@@ -40,7 +40,6 @@
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2.5">Pilih IC Pemohon Untuk Ditapis:</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        
                         <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all select-none has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50/40">
                             <input type="checkbox" id="tickSUHARDI" value="810130065369" checked class="w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500" />
                             <div>
@@ -48,7 +47,6 @@
                                 <span class="text-xs font-mono text-slate-500">810130065369</span>
                             </div>
                         </label>
-
                         <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all select-none has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50/40">
                             <input type="checkbox" id="tickJEFRISANI" value="810104065293" class="w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500" />
                             <div>
@@ -56,7 +54,6 @@
                                 <span class="text-xs font-mono text-slate-500">810104065293</span>
                             </div>
                         </label>
-
                     </div>
                 </div>
 
@@ -73,16 +70,16 @@
                 
                 <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
                     <button id="processBtn" disabled class="bg-slate-300 text-slate-500 font-bold px-6 py-2 rounded-xl cursor-not-allowed transition-all flex items-center gap-2 text-sm shadow-xs">
-                        <span>⚙️</span> Tapis Data Laporan
+                        <span>⚙️</span> Tapis Kod GitHub MD
                     </button>
                     <button id="downloadBtn" style="display:none;" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2 rounded-xl transition-all flex items-center gap-2 text-sm shadow-md shadow-emerald-600/10">
-                        <span>📊</span> Muat Turun Master Excel (Semua Bulan)
+                        <span>📊</span> Muat Turun Master Excel
                     </button>
                 </div>
             </div>
 
             <div class="bg-blue-950 text-white rounded-2xl p-6 shadow-md flex flex-col justify-between relative overflow-hidden">
-                <div class="absolute -right-6 -bottom-6 text-9xl text-blue-900/20 pointer-events-none font-bold select-none">DATA</div>
+                <div class="absolute -right-6 -bottom-6 text-9xl text-blue-900/20 pointer-events-none font-bold select-none">GIT</div>
                 <div class="space-y-4 z-10">
                     <h3 class="text-xs font-bold tracking-wider text-blue-300 uppercase">Status Pilihan Semasa</h3>
                     <div class="space-y-2">
@@ -106,7 +103,7 @@
     </main>
 
     <footer class="bg-white border-t border-slate-200 text-center py-4 text-xs text-slate-400 mt-auto">
-        Jabatan Perakaunan Kementerian Pendidikan Malaysia
+        Format Struktur Khas Markdown Teroptimum untuk GitHub Enterprise
     </footer>
 
     <script>
@@ -134,7 +131,6 @@
         let monthlyResultsGlobal = {}; 
         let rawWorkbookData = null;
         let activeFilterLabels = "";
-        let selectedICsGlobal = [];
 
         document.getElementById('uploadFile').addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -160,18 +156,18 @@
         document.getElementById('processBtn').addEventListener('click', function() {
             if(!rawWorkbookData) return;
 
-            selectedICsGlobal = [];
+            let selectedICs = [];
             let labelsArray = [];
             if(document.getElementById('tickSUHARDI').checked) {
-                selectedICsGlobal.push(document.getElementById('tickSUHARDI').value);
+                selectedICs.push(document.getElementById('tickSUHARDI').value);
                 labelsArray.push("810130065369 (Suhardi)");
             }
             if(document.getElementById('tickJEFRISANI').checked) {
-                selectedICsGlobal.push(document.getElementById('tickJEFRISANI').value);
+                selectedICs.push(document.getElementById('tickJEFRISANI').value);
                 labelsArray.push("810104065293 (Jefrisani)");
             }
 
-            if(selectedICsGlobal.length === 0) {
+            if(selectedICs.length === 0) {
                 alert("Sila pilih sekurang-kurangnya satu kotak IC!");
                 return;
             }
@@ -187,7 +183,6 @@
             const userIdIndex = headers.findIndex(h => h.includes('User ID'));
             const dateIndex = headers.findIndex(h => h.includes('Tarikh Dokumen'));
 
-            // Reset cache bulanan
             for(let m = 1; m <= 12; m++) {
                 monthlyResultsGlobal[m] = {};
                 targetApplicationTypes.forEach(t => {
@@ -202,7 +197,7 @@
                 if(!row || row.length === 0) continue;
 
                 const rowUserId = String(row[userIdIndex] || '').trim();
-                if(!selectedICsGlobal.includes(rowUserId)) continue;
+                if(!selectedICs.includes(rowUserId)) continue;
 
                 let dateValue = row[dateIndex];
                 let monthNumber = 1; 
@@ -257,8 +252,8 @@
                             <span class="w-3 h-3 rounded-full bg-blue-700"></span>
                             <h3 class="text-sm font-bold text-slate-900">RINGKASAN CAPAIAN IGFMAS - ${monthTitle}</h3>
                         </div>
-                        <button onclick="copyMonthToClipboard(${m}, '${monthTitle}')" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all cursor-pointer shadow-xs">
-                            <span>📋</span> Salin Data ${monthTitle}
+                        <button onclick="copyMonthToMarkdown(${m}, '${monthTitle}')" class="bg-slate-900 hover:bg-black text-white font-semibold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all cursor-pointer shadow-xs">
+                            <span>🐙</span> Salin Kod GitHub MD (${monthTitle})
                         </button>
                     </div>
                     
@@ -280,7 +275,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <p id="feedback-month-${m}" class="text-xs text-emerald-600 font-medium text-right hidden">✓ Data sel, maklumat IC (${activeFilterLabels}) & ${monthTitle} disalin!</p>
+                    <p id="feedback-month-${m}" class="text-xs text-blue-600 font-bold text-right hidden">✓ Kod jadual GitHub Markdown berjaya disalin! Sila tempek (Ctrl+V) dalam fail .md anda.</p>
                 `;
 
                 tablesContainer.appendChild(card);
@@ -315,49 +310,56 @@
             }
 
             document.getElementById('downloadBtn').style.display = 'inline-flex';
-            document.getElementById('statusIndicator').innerText = "Selesai diasingkan mengikut bulan!";
+            document.getElementById('statusIndicator').innerText = "Selesai ditukarkan kepada format GitHub.";
         });
 
-        // FUNGSI UTAMA SALINAN DATA BESERTA INFO LENGKAP (IC, BULAN, TAHUN)
-        function copyMonthToClipboard(monthNum, monthTitle) {
+        // FUNGSI INJEKSI JADUAL MARKDOWN KHAS UNTUK GITHUB
+        function copyMonthToMarkdown(monthNum, monthTitle) {
             const dataMap = monthlyResultsGlobal[monthNum];
             if(!dataMap) return;
 
-            // PENAMBAHAN STRUKTUR METADATA RASMI DI CLIPBOARD
-            let clipboardText = "";
-            clipboardText += `MAKLUMAT TAPISAN:\t${activeFilterLabels}\n`;
-            clipboardText += `BULAN/TAHUN:\t${monthTitle}\n`;
-            clipboardText += `------------------------------------------------------------\n`;
-            clipboardText += `Jenis Permohonan\t10\t20\t22\t42\t80\t84\tJumlah\n`;
+            let mdText = `### 📊 RINGKASAN CAPAIAN IGFMAS - ${monthTitle}\n\n`;
+            mdText += `> 🔍 **Maklumat Tapisan ID Pengguna:** \`${activeFilterLabels}\`\n\n`;
+            
+            // Cipta format GFM (GitHub Flavored Markdown) Headers
+            mdText += `| Jenis Permohonan | 10 | 20 | 22 | 42 | 80 | 84 | **Jumlah** |\n`;
+            mdText += `| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n`;
 
             let colTotals = { 10:0, 20:0, 22:0, 42:0, 80:0, 84:0, total: 0 };
 
             targetApplicationTypes.forEach(type => {
                 const map = dataMap[type];
-                clipboardText += `${type}\t${map[10]}\t${map[20]}\t${map[22]}\t${map[42]}\t${map[80]}\t${map[84]}\t${map.total}\n`;
+                
+                // Gunakan emoji untuk visualisasi warna yang menarik di GitHub Markdown
+                let cellTotalStr = map.total > 0 ? `🔹 **${map.total}**` : `0`;
+                let cell80Str = map[80] > 0 ? `🟢 **${map[80]}**` : `0`;
+                let cell84Str = map[84] > 0 ? `🔴 **${map[84]}**` : `0`;
+
+                mdText += `| ${type} | ${map[10]} | ${map[20]} | ${map[22]} | ${map[42]} | ${cell80Str} | ${cell84Str} | ${cellTotalStr} |\n`;
                 
                 colTotals[10] += map[10]; colTotals[20] += map[20]; colTotals[22] += map[22];
                 colTotals[42] += map[42]; colTotals[80] += map[80]; colTotals[84] += map[84]; 
                 colTotals.total += map.total;
             });
 
-            clipboardText += `Jumlah\t${colTotals[10]}\t${colTotals[20]}\t${colTotals[22]}\t${colTotals[42]}\t${colTotals[80]}\t${colTotals[84]}\t${colTotals.total}\n`;
+            // Tambah baris penutup jumlah besar (Grand Totals)
+            mdText += `| **JUMLAH KESELURUHAN** | **${colTotals[10]}** | **${colTotals[20]}** | **${colTotals[22]}** | **${colTotals[42]}** | 🟢 **${colTotals[80]}** | 🔴 **${colTotals[84]}** | 🏆 **${colTotals.total}** |\n`;
 
-            navigator.clipboard.writeText(clipboardText).then(() => {
+            // Hantar kod MD ke clipboard komputer
+            navigator.clipboard.writeText(mdText).then(() => {
                 const feedback = document.getElementById(`feedback-month-${monthNum}`);
                 feedback.classList.remove('hidden');
-                setTimeout(() => { feedback.classList.add('hidden'); }, 4000);
+                setTimeout(() => { feedback.classList.add('hidden'); }, 5000);
             });
         }
 
-        // DOWNLOAD MASTER EXCEL ALL MONTHS
+        // DOWNLOAD EXCEL TRADISIONAL
         document.getElementById('downloadBtn').addEventListener('click', function() {
             const wb = XLSX.utils.book_new();
             for(let m = 1; m <= 12; m++) {
                 let hasData = false;
                 targetApplicationTypes.forEach(t => { if(monthlyResultsGlobal[m][t].total > 0) hasData = true; });
                 if(!hasData) continue;
-
                 const monthTitle = monthNamesSummary[m];
                 const wsData = [
                     [`MAKLUMAT FILTER:`, activeFilterLabels],
@@ -365,7 +367,6 @@
                     [],
                     ["Jenis Permohonan", "10", "20", "22", "42", "80", "84", "Jumlah"]
                 ];
-
                 let colTotals = { 10:0, 20:0, 22:0, 42:0, 80:0, 84:0, total: 0 };
                 targetApplicationTypes.forEach(type => {
                     const map = monthlyResultsGlobal[m][type];
@@ -374,12 +375,10 @@
                     colTotals[42] += map[42]; colTotals[80] += map[80]; colTotals[84] += map[84]; colTotals.total += map.total;
                 });
                 wsData.push(["Jumlah", colTotals[10], colTotals[20], colTotals[22], colTotals[42], colTotals[80], colTotals[84], colTotals.total]);
-
                 const ws = XLSX.utils.aoa_to_sheet(wsData);
-                ws['!cols'] = [{ wch: 32 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 10 }];
                 XLSX.utils.book_append_sheet(wb, ws, `Laporan ${monthTitle.split(' ')[0]}`);
             }
-            XLSX.writeFile(wb, "Laporan_Capaian_IGFMAS_Lengkap_2026.xlsx");
+            XLSX.writeFile(wb, "Laporan_iGFMAS_GitHub_Format.xlsx");
         });
     </script>
 </body>
