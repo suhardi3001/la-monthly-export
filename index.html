@@ -2,144 +2,94 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Data Mapper</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <title>IT Service Management Search Results</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; padding: 20px; background: #f4f7f6; color: #333; }
-        .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
-        button { border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; background: #007bff; color: white; transition: 0.2s; }
-        button:hover { background: #0056b3; }
-        .status { padding: 12px; border-radius: 6px; background: #e9ecef; margin-bottom: 20px; border-left: 4px solid #007bff; }
-        .table-container { overflow-x: auto; border: 1px solid #dee2e6; border-radius: 8px; max-height: 400px; }
-        table { width: 100%; border-collapse: collapse; font-size: 12px; }
-        th { background: #007bff; color: white; padding: 10px; text-align: left; position: sticky; top: 0; }
-        td { padding: 8px; border-bottom: 1px solid #eee; }
-        input[type="file"] { display: none; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50;
+        }
+        tr:hover, td:hover {
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h2>CSV & Excel Mapper</h2>
-    <p>Step-by-step processing with custom column mapping.</p>
+    <h1>IT Service Management Search Results</h1>
     
-    <div class="grid">
-        <button onclick="document.getElementById('inputA').click()">1. Load CSV A</button>
-        <button onclick="document.getElementById('inputB').click()">2. Load Excel B</button>
-        <button onclick="rearrangeData()">3. Map Excel to CSV Headers</button>
-        <button onclick="updatePreview(processedB, 'Step 4: Internal Conversion Complete')">4. Convert to CSV Format</button>
-        <button onclick="mergeAndDeduplicate()">5. Merge & Deduplicate</button>
-        <button style="background: #28a745;" onclick="exportResult()">6. Export ready.csv</button>
+    <!-- Search Form -->
+    <form action="https://1gfmassupport.anm.gov.my/helpdesk" method="GET">
+        <input type="hidden" name="_foreach_" value="as=None" />
+        
+        <div style="margin-bottom: 10px;">
+            <label for="createdBy">Created By ID:</label>
+            <input type="text" id="createdBy" name="searchBy_createdBy" placeholder="Enter ID 810130065369">
+        </div>
+        
+        <div style="margin-bottom: 10px;">
+            <label for="assignedTo">Assigned To ID:</label>
+            <input type="text" id="assignedTo" name="searchBy_assignedTo" placeholder="Enter ID 810130065369">
+        </div>
+        
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Results Display -->
+    <table width="100%" style="margin-top: 20px;">
+        <thead>
+            <tr>
+                <th>Incident Number</th>
+                <th.Created By></th>
+                <th.Aigned To></th>
+                <th>Status</th>
+                <th.Count</th>
+            </tr>
+        </thead>
+        
+        <tbody id="resultsBody">
+            <!-- Results will be inserted here -->
+        </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <div style="margin-top: 20px; margin-bottom: 20px;">
+        <button onclick="previousPage()" style="display: inline-block;">Previous</button>
+        <span id="currentPage">Page 1</span>
+        <button onclick="nextPage()" style="display: inline-block;">Next</button>
     </div>
 
-    <input type="file" id="inputA" accept=".csv" onchange="handleFileA(this)">
-    <input type="file" id="inputB" accept=".xlsx, .xls" onchange="handleFileB(this)">
+    <script>
+        // Placeholder for download functionality
+        function downloadExcel() {
+            alert('Results exported to Excel format.');
+        }
 
-    <div class="status" id="statusBox">Waiting for files...</div>
+        // Current page display
+        document.getElementById('currentPage').innerHTML = `Page ${document.getElementById('currentPage').value}`;
 
-    <div class="table-container">
-        <table id="previewTable">
-            <thead><tr id="tableHead"></tr></thead>
-            <tbody id="tableBody"></tbody>
-        </table>
-    </div>
-</div>
-
-<script>
-    let dataA = [], rawB = [], processedB = [], finalData = [];
-
-    function updateStatus(msg) { document.getElementById('statusBox').innerText = "Status: " + msg; }
-
-    function handleFileA(input) {
-        Papa.parse(input.files[0], {
-            header: true, skipEmptyLines: true,
-            complete: (res) => {
-                dataA = res.data;
-                updateStatus("CSV A Loaded.");
-                updatePreview(dataA);
+        // Previous page
+        function nextPage() {
+            if (this.innerHTML.includes('Previous')) {
+                this.innerHTML = 'Next';
+                window.location.href = `https://1gfmassupport.anm.gov.my/helpdesk?_ sort_by created_at&start=${{#queryParams|default:0}}&_ per_page=25";
             }
-        });
-    }
+        }
 
-    function handleFileB(input) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const wb = XLSX.read(e.target.result, { type: 'binary' });
-            rawB = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
-            updateStatus("Excel B Loaded.");
-            updatePreview(rawB);
-        };
-        reader.readAsBinaryString(input.files[0]);
-    }
+        function previousPage() {
+            if (this.innerHTML.includes('Next')) {
+                this.innerHTML = 'Previous';
+                window.location.href = `https://1gfmassupport.anm.gov.my/helpdesk?_ sort_by created_at&start=${{#queryParams|default:0}}&_ per_page=25";
+            }
+        }
 
-    function rearrangeData() {
-        if (!rawB.length) return alert("Please load Excel B first!");
+        // Note: The actual search and result fetching logic needs to be implemented in a backend server
+    </script>
 
-        // Stricly defined mapping based on your requirements
-        processedB = rawB.map(row => {
-            return {
-                "Id": "",                        // null
-                "ic_number": row["User name"] || "",
-                "nama": row["Complete name"] || "",
-                "telefon": row["Telephone"] || "",
-                "emel": row["E-Mail Address"] || "",
-                "gred": row["Job Grade"] || "",
-                "kod_ptj": row["Functional Area"] || "",
-                "department": row["Department"] || "",
-                "created_at": ""                 // null
-            };
-        });
-
-        updateStatus("Excel data mapped to CSV A headers.");
-        updatePreview(processedB);
-    }
-
-    function mergeAndDeduplicate() {
-        if (!dataA.length || !processedB.length) return alert("Load files and run mapping first!");
-        
-        const combined = [...dataA, ...processedB];
-        const seen = new Set();
-
-        finalData = combined.filter(row => {
-            // Using ic_number as the primary unique ID based on your mapping
-            const id = String(row["ic_number"] || row["uuid"] || '').trim();
-            if (!id) return true;
-            if (seen.has(id)) return false;
-            seen.add(id);
-            return true;
-        });
-
-        updateStatus(`Merge complete! Unique rows: ${finalData.length}`);
-        updatePreview(finalData);
-    }
-
-    function updatePreview(data) {
-        const head = document.getElementById('tableHead');
-        const body = document.getElementById('tableBody');
-        head.innerHTML = ""; body.innerHTML = "";
-        
-        if (!data || data.length === 0) return;
-        const headers = Object.keys(data[0]);
-        headers.forEach(h => head.innerHTML += `<th>${h}</th>`);
-        
-        data.slice(0, 8).forEach(row => {
-            let tr = "<tr>";
-            headers.forEach(h => tr += `<td>${row[h] || ''}</td>`);
-            body.innerHTML += tr + "</tr>";
-        });
-    }
-
-    function exportResult() {
-        if (!finalData.length) return alert("Nothing to export!");
-        const csv = Papa.unparse(finalData);
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
-        link.download = "ready.csv";
-        link.click();
-    }
-</script>
 </body>
 </html>
