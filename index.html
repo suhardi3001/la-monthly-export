@@ -1,95 +1,386 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <title>IT Service Management Search Results</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-        }
-        th {
-            background-color: #4CAF50;
-        }
-        tr:hover, td:hover {
-            background-color: #f9f9f9;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penjana Laporan iGFMAS (Salin Maklumat Lengkap)</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
-<body>
-    <h1>IT Service Management Search Results</h1>
-    
-    <!-- Search Form -->
-    <form action="https://1gfmassupport.anm.gov.my/helpdesk" method="GET">
-        <input type="hidden" name="_foreach_" value="as=None" />
-        
-        <div style="margin-bottom: 10px;">
-            <label for="createdBy">Created By ID:</label>
-            <input type="text" id="createdBy" name="searchBy_createdBy" placeholder="Enter ID ************">
-        </div>
-        
-        <div style="margin-bottom: 10px;">
-            <label for="assignedTo">Assigned To ID:</label>
-            <input type="text" id="assignedTo" name="searchBy_assignedTo" placeholder="Enter ID ************">
-        </div>
-        
-        <button type="submit">Search</button>
-    </form>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
 
-    <!-- Results Display -->
-    <table width="100%" style="margin-top: 20px;">
-        <thead>
-            <tr>
-                <th>Incident Number</th>
-                <th.Created By></th>
-                <th.Aigned To></th>
-                <th>Status</th>
-                <th.Count</th>
-            </tr>
-        </thead>
-        
-        <tbody id="resultsBody">
-            <!-- Results will be inserted here -->
-        </tbody>
-    </table>
+    <header class="bg-blue-950 text-white shadow-md py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <div class="bg-blue-600 p-2 rounded-lg text-xl font-bold tracking-wider">iG</div>
+            <div>
+                <h1 class="text-lg font-bold leading-tight">Sistem Penjana Laporan Capaian</h1>
+                <p class="text-xs text-slate-300">Format Standard Laporan LA-2026 (Salin Info Penuh)</p>
+            </div>
+        </div>
+        <div class="bg-blue-900/50 px-4 py-2 rounded-lg border border-blue-700/50 text-right">
+            <span class="text-xs block text-slate-400 font-medium">Format Eksport</span>
+            <span class="text-sm font-mono font-bold text-blue-300">INFO PENAPISAN LENGKAP</span>
+        </div>
+    </header>
 
-    <!-- Pagination Controls -->
-    <div style="margin-top: 20px; margin-bottom: 20px;">
-        <button onclick="previousPage()" style="display: inline-block;">Previous</button>
-        <span id="currentPage">Page 1</span>
-        <button onclick="nextPage()" style="display: inline-block;">Next</button>
-    </div>
+    <main class="flex-1 max-w-4xl w-full mx-auto p-6 md:p-8 space-y-6">
+        
+        <section class="bg-white rounded-2xl p-6 shadow-xs border border-slate-200/80">
+            <h2 class="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                <span>📋</span> Salin Data Beserta Maklumat IC & Bulan
+            </h2>
+            <p class="text-slate-600 text-sm leading-relaxed">
+                Apabila butang <strong>"Salin Data"</strong> ditekan, maklumat metatada seperti <strong>No. IC yang ditapis, Bulan, dan Tahun</strong> akan diletakkan secara automatik di bahagian atas data sel untuk memudahkan tugasan tampalan (*paste*) rekod ke Microsoft Excel.
+            </p>
+        </section>
+
+        <section class="grid md:grid-cols-3 gap-6">
+            <div class="md:col-span-2 bg-white rounded-2xl p-6 shadow-xs border border-slate-200/80 space-y-5">
+                
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2.5">Pilih IC Pemohon Untuk Ditapis:</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        
+                        <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all select-none has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50/40">
+                            <input type="checkbox" id="tickSUHARDI" value="810130065369" checked class="w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500" />
+                            <div>
+                                <span class="text-xs font-bold text-slate-900 block">SUHARDI BIN ALIAS</span>
+                                <span class="text-xs font-mono text-slate-500">810130065369</span>
+                            </div>
+                        </label>
+
+                        <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all select-none has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50/40">
+                            <input type="checkbox" id="tickJEFRISANI" value="810104065293" class="w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500" />
+                            <div>
+                                <span class="text-xs font-bold text-slate-900 block">JEFRISANI BIN MOKHTAR</span>
+                                <span class="text-xs font-mono text-slate-500">810104065293</span>
+                            </div>
+                        </label>
+
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Muat Naik Fail Mentah (zrbc007-jan.xlsx)</label>
+                    <div class="relative group border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-xl p-4 transition-all text-center bg-slate-50/50 hover:bg-blue-50/30">
+                        <input type="file" id="uploadFile" accept=".xlsx, .xls, .csv" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                        <div class="space-y-1 pointer-events-none">
+                            <span class="text-2xl block">📥</span>
+                            <p class="text-xs font-medium text-slate-600 group-hover:text-blue-600" id="fileNameDisplay">Pilih fail atau seret ke sini</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+                    <button id="processBtn" disabled class="bg-slate-300 text-slate-500 font-bold px-6 py-2 rounded-xl cursor-not-allowed transition-all flex items-center gap-2 text-sm shadow-xs">
+                        <span>⚙️</span> Tapis Data Laporan
+                    </button>
+                    <button id="downloadBtn" style="display:none;" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2 rounded-xl transition-all flex items-center gap-2 text-sm shadow-md shadow-emerald-600/10">
+                        <span>📊</span> Muat Turun Master Excel (Semua Bulan)
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-blue-950 text-white rounded-2xl p-6 shadow-md flex flex-col justify-between relative overflow-hidden">
+                <div class="absolute -right-6 -bottom-6 text-9xl text-blue-900/20 pointer-events-none font-bold select-none">DATA</div>
+                <div class="space-y-4 z-10">
+                    <h3 class="text-xs font-bold tracking-wider text-blue-300 uppercase">Status Pilihan Semasa</h3>
+                    <div class="space-y-2">
+                        <div class="text-xs border-b border-blue-900 pb-1.5">
+                            <span class="text-slate-400 block mb-0.5">IC Aktif Ditapis:</span>
+                            <span class="font-mono font-bold text-amber-300 text-[11px] block leading-relaxed whitespace-pre-line" id="statFilteredIC">Tiada Pilihan</span>
+                        </div>
+                        <div class="flex justify-between text-xs border-b border-blue-900 pb-1">
+                            <span class="text-slate-400">Total Rekod Sepadan:</span>
+                            <span class="font-mono font-bold text-slate-200" id="statTotalRows">-</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="statusIndicator" class="mt-4 bg-blue-900/60 text-slate-300 text-center text-xs py-2 rounded-lg border border-blue-800/60 font-medium">
+                    Sila muat naik fail untuk bermula
+                </div>
+            </div>
+        </section>
+
+        <section id="monthlyTablesContainer" class="space-y-8"></section>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 text-center py-4 text-xs text-slate-400 mt-auto">
+        Jabatan Perakaunan Kementerian Pendidikan Malaysia
+    </footer>
 
     <script>
-        // Placeholder for download functionality
-        function downloadExcel() {
-            alert('Results exported to Excel format.');
-        }
+        const targetApplicationTypes = [
+            "J01 - PENGGUNA BAHARU",
+            "J02 - KEMASKINI MAKLUMAT",
+            "J03 - PENAMBAHAN PERANAN",
+            "J04 - PERTUKARAN KELUAR",
+            "J05 - PERTUKARAN MASUK",
+            "J06 - PENGAKTIFAN SEMULA ID",
+            "J07 - HAPUS ID",
+            "J08 - HAPUS PERANAN",
+            "J09 - MODUL MYCOST",
+            "J10 - PERMOHONAN KHAS"
+        ];
 
-        // Current page display
-        document.getElementById('currentPage').innerHTML = `Page ${document.getElementById('currentPage').value}`;
+        const statuses = [10, 20, 22, 42, 80, 84];
+        
+        const monthNamesSummary = {
+            1: "JAN 2026", 2: "FEB 2026", 3: "MAR 2026", 4: "APR 2026",
+            5: "MAY 2026", 6: "JUN 2026", 7: "JUL 2026", 8: "OGOS 2026",
+            9: "SEPTEMBER 2026", 10: "OKTOBER 2026", 11: "NOVEMBER 2026", 12: "DISEMBER 2026"
+        };
 
-        // Previous page
-        function nextPage() {
-            if (this.innerHTML.includes('Previous')) {
-                this.innerHTML = 'Next';
-                window.location.href = `https://1gfmassupport.anm.gov.my/helpdesk?_ sort_by created_at&start=${{#queryParams|default:0}}&_ per_page=25";
+        let monthlyResultsGlobal = {}; 
+        let rawWorkbookData = null;
+        let activeFilterLabels = "";
+        let selectedICsGlobal = [];
+
+        document.getElementById('uploadFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            document.getElementById('fileNameDisplay').innerText = file.name;
+            
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    const data = new Uint8Array(evt.target.result);
+                    rawWorkbookData = XLSX.read(data, {type: 'array', cellDates: true});
+                    const procBtn = document.getElementById('processBtn');
+                    procBtn.disabled = false;
+                    procBtn.className = "bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded-xl cursor-pointer transition-all flex items-center gap-2 text-sm shadow-md shadow-blue-600/10";
+                    document.getElementById('statusIndicator').innerText = "Fail sedia diproses.";
+                } catch(err) {
+                    alert("Ralat membaca fail!");
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        document.getElementById('processBtn').addEventListener('click', function() {
+            if(!rawWorkbookData) return;
+
+            selectedICsGlobal = [];
+            let labelsArray = [];
+            if(document.getElementById('tickSUHARDI').checked) {
+                selectedICsGlobal.push(document.getElementById('tickSUHARDI').value);
+                labelsArray.push("810130065369 (Suhardi)");
             }
-        }
-
-        function previousPage() {
-            if (this.innerHTML.includes('Next')) {
-                this.innerHTML = 'Previous';
-                window.location.href = `https://1gfmassupport.anm.gov.my/helpdesk?_ sort_by created_at&start=${{#queryParams|default:0}}&_ per_page=25";
+            if(document.getElementById('tickJEFRISANI').checked) {
+                selectedICsGlobal.push(document.getElementById('tickJEFRISANI').value);
+                labelsArray.push("810104065293 (Jefrisani)");
             }
+
+            if(selectedICsGlobal.length === 0) {
+                alert("Sila pilih sekurang-kurangnya satu kotak IC!");
+                return;
+            }
+            activeFilterLabels = labelsArray.join(" & ");
+
+            const firstSheetName = rawWorkbookData.SheetNames[0];
+            const worksheet = rawWorkbookData.Sheets[firstSheetName];
+            const rows = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+
+            const headers = rows[0].map(h => String(h).trim());
+            const typeIndex = headers.findIndex(h => h.includes('Jenis Permohonan'));
+            const statusIndex = headers.findIndex(h => h.includes('Status Dokumen'));
+            const userIdIndex = headers.findIndex(h => h.includes('User ID'));
+            const dateIndex = headers.findIndex(h => h.includes('Tarikh Dokumen'));
+
+            // Reset cache bulanan
+            for(let m = 1; m <= 12; m++) {
+                monthlyResultsGlobal[m] = {};
+                targetApplicationTypes.forEach(t => {
+                    monthlyResultsGlobal[m][t] = { 10:0, 20:0, 22:0, 42:0, 80:0, 84:0, total: 0 };
+                });
+            }
+
+            let totalMatchedRows = 0;
+
+            for(let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                if(!row || row.length === 0) continue;
+
+                const rowUserId = String(row[userIdIndex] || '').trim();
+                if(!selectedICsGlobal.includes(rowUserId)) continue;
+
+                let dateValue = row[dateIndex];
+                let monthNumber = 1; 
+                
+                if(dateValue) {
+                    let d = new Date(dateValue);
+                    if(!isNaN(d.getTime())) {
+                        monthNumber = d.getMonth() + 1;
+                    } else {
+                        let parts = String(dateValue).split('-');
+                        if(parts.length >= 2) monthNumber = parseInt(parts[1]) || 1;
+                    }
+                }
+
+                let rowType = String(row[typeIndex] || '').trim();
+                let rowStatus = parseInt(row[statusIndex]);
+
+                if(rowType.toUpperCase().startsWith("PERANAN")) { 
+                    rowType = "J03 - PENAMBAHAN PERANAN"; 
+                }
+
+                const matchedType = targetApplicationTypes.find(t => rowType.toUpperCase().startsWith(t.substring(0, 3)));
+                
+                if (matchedType && statuses.includes(rowStatus)) {
+                    if(monthNumber >= 1 && monthNumber <= 12) {
+                        monthlyResultsGlobal[monthNumber][matchedType][rowStatus]++;
+                        monthlyResultsGlobal[monthNumber][matchedType].total++;
+                        totalMatchedRows++;
+                    }
+                }
+            }
+
+            document.getElementById('statFilteredIC').innerText = labelsArray.join("\n+ ");
+            document.getElementById('statTotalRows').innerText = totalMatchedRows;
+
+            const tablesContainer = document.getElementById('monthlyTablesContainer');
+            tablesContainer.innerHTML = ''; 
+
+            for(let m = 1; m <= 12; m++) {
+                let hasData = false;
+                targetApplicationTypes.forEach(type => { if(monthlyResultsGlobal[m][type].total > 0) hasData = true; });
+
+                if(!hasData) continue; 
+
+                const monthTitle = monthNamesSummary[m];
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl p-6 shadow-xs border border-slate-200/80 space-y-4 overflow-hidden";
+                
+                card.innerHTML = `
+                    <div class="flex justify-between items-center flex-wrap gap-2">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-blue-700"></span>
+                            <h3 class="text-sm font-bold text-slate-900">RINGKASAN CAPAIAN IGFMAS - ${monthTitle}</h3>
+                        </div>
+                        <button onclick="copyMonthToClipboard(${m}, '${monthTitle}')" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all cursor-pointer shadow-xs">
+                            <span>📋</span> Salin Data ${monthTitle}
+                        </button>
+                    </div>
+                    
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold font-mono">
+                                    <th class="p-2.5 bg-slate-100/50">Jenis Permohonan</th>
+                                    <th class="p-2.5 text-center">10</th>
+                                    <th class="p-2.5 text-center">20</th>
+                                    <th class="p-2.5 text-center">22</th>
+                                    <th class="p-2.5 text-center">42</th>
+                                    <th class="p-2.5 text-center">80</th>
+                                    <th class="p-2.5 text-center">84</th>
+                                    <th class="p-2.5 text-center bg-slate-100/50 font-bold text-slate-900">Jumlah</th>
+                                </tr>
+                            </thead>
+                            <tbody id="body-month-${m}" class="divide-y divide-slate-100 font-medium text-slate-600">
+                            </tbody>
+                        </table>
+                    </div>
+                    <p id="feedback-month-${m}" class="text-xs text-emerald-600 font-medium text-right hidden">✓ Data sel, maklumat IC (${activeFilterLabels}) & ${monthTitle} disalin!</p>
+                `;
+
+                tablesContainer.appendChild(card);
+
+                const tbody = document.getElementById(`body-month-${m}`);
+                let columnGrandTotals = { 10:0, 20:0, 22:0, 42:0, 80:0, 84:0, grand: 0 };
+
+                targetApplicationTypes.forEach(type => {
+                    const meta = monthlyResultsGlobal[m][type];
+                    const tr = document.createElement('tr');
+                    
+                    let cellsHtml = `<td class="p-2.5 font-semibold text-slate-800 bg-slate-50/20">${type}</td>`;
+                    statuses.forEach(status => {
+                        const val = meta[status];
+                        cellsHtml += `<td class="p-2.5 text-center font-mono">${val}</td>`;
+                        columnGrandTotals[status] += val;
+                    });
+                    cellsHtml += `<td class="p-2.5 text-center font-mono bg-slate-50/40 font-bold text-slate-900">${meta.total}</td>`;
+                    columnGrandTotals.grand += meta.total;
+                    
+                    tr.innerHTML = cellsHtml;
+                    tbody.appendChild(tr);
+                });
+
+                const totalTr = document.createElement('tr');
+                totalTr.className = "bg-slate-100/70 border-t-2 border-slate-200 text-slate-900 font-bold font-mono";
+                let totalCellsHtml = `<td class="p-2.5">Jumlah</td>`;
+                statuses.forEach(status => { totalCellsHtml += `<td class="p-2.5 text-center">${columnGrandTotals[status]}</td>`; });
+                totalCellsHtml += `<td class="p-2.5 text-center text-blue-800">${columnGrandTotals.grand}</td>`;
+                totalTr.innerHTML = totalCellsHtml;
+                tbody.appendChild(totalTr);
+            }
+
+            document.getElementById('downloadBtn').style.display = 'inline-flex';
+            document.getElementById('statusIndicator').innerText = "Selesai diasingkan mengikut bulan!";
+        });
+
+        // FUNGSI UTAMA SALINAN DATA BESERTA INFO LENGKAP (IC, BULAN, TAHUN)
+        function copyMonthToClipboard(monthNum, monthTitle) {
+            const dataMap = monthlyResultsGlobal[monthNum];
+            if(!dataMap) return;
+
+            // PENAMBAHAN STRUKTUR METADATA RASMI DI CLIPBOARD
+            let clipboardText = "";
+            clipboardText += `MAKLUMAT TAPISAN:\t${activeFilterLabels}\n`;
+            clipboardText += `BULAN/TAHUN:\t${monthTitle}\n`;
+            clipboardText += `------------------------------------------------------------\n`;
+            clipboardText += `Jenis Permohonan\t10\t20\t22\t42\t80\t84\tJumlah\n`;
+
+            let colTotals = { 10:0, 20:0, 22:0, 42:0, 80:0, 84:0, total: 0 };
+
+            targetApplicationTypes.forEach(type => {
+                const map = dataMap[type];
+                clipboardText += `${type}\t${map[10]}\t${map[20]}\t${map[22]}\t${map[42]}\t${map[80]}\t${map[84]}\t${map.total}\n`;
+                
+                colTotals[10] += map[10]; colTotals[20] += map[20]; colTotals[22] += map[22];
+                colTotals[42] += map[42]; colTotals[80] += map[80]; colTotals[84] += map[84]; 
+                colTotals.total += map.total;
+            });
+
+            clipboardText += `Jumlah\t${colTotals[10]}\t${colTotals[20]}\t${colTotals[22]}\t${colTotals[42]}\t${colTotals[80]}\t${colTotals[84]}\t${colTotals.total}\n`;
+
+            navigator.clipboard.writeText(clipboardText).then(() => {
+                const feedback = document.getElementById(`feedback-month-${monthNum}`);
+                feedback.classList.remove('hidden');
+                setTimeout(() => { feedback.classList.add('hidden'); }, 4000);
+            });
         }
 
-        // Note: The actual search and result fetching logic needs to be implemented in a backend server
+        // DOWNLOAD MASTER EXCEL ALL MONTHS
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const wb = XLSX.utils.book_new();
+            for(let m = 1; m <= 12; m++) {
+                let hasData = false;
+                targetApplicationTypes.forEach(t => { if(monthlyResultsGlobal[m][t].total > 0) hasData = true; });
+                if(!hasData) continue;
+
+                const monthTitle = monthNamesSummary[m];
+                const wsData = [
+                    [`MAKLUMAT FILTER:`, activeFilterLabels],
+                    [`LAPORAN BULANAN:`, monthTitle],
+                    [],
+                    ["Jenis Permohonan", "10", "20", "22", "42", "80", "84", "Jumlah"]
+                ];
+
+                let colTotals = { 10:0, 20:0, 22:0, 42:0, 80:0, 84:0, total: 0 };
+                targetApplicationTypes.forEach(type => {
+                    const map = monthlyResultsGlobal[m][type];
+                    wsData.push([type, map[10], map[20], map[22], map[42], map[80], map[84], map.total]);
+                    colTotals[10] += map[10]; colTotals[20] += map[20]; colTotals[22] += map[22];
+                    colTotals[42] += map[42]; colTotals[80] += map[80]; colTotals[84] += map[84]; colTotals.total += map.total;
+                });
+                wsData.push(["Jumlah", colTotals[10], colTotals[20], colTotals[22], colTotals[42], colTotals[80], colTotals[84], colTotals.total]);
+
+                const ws = XLSX.utils.aoa_to_sheet(wsData);
+                ws['!cols'] = [{ wch: 32 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 10 }];
+                XLSX.utils.book_append_sheet(wb, ws, `Laporan ${monthTitle.split(' ')[0]}`);
+            }
+            XLSX.writeFile(wb, "Laporan_Capaian_IGFMAS_Lengkap_2026.xlsx");
+        });
     </script>
-
 </body>
 </html>
