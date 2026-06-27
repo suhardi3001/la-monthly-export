@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penjana Laporan iGFMAS (GitHub Markdown Layout)</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <title>Penjana Laporan iGFMAS (GitHub Layout Fix)</title>
+    <script src="[https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4](https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4)"></script>
+    <script src="[https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js](https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js)"></script>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
 
@@ -14,23 +14,23 @@
             <div class="bg-blue-600 p-2 rounded-lg text-xl font-bold tracking-wider">iG</div>
             <div>
                 <h1 class="text-lg font-bold leading-tight">Sistem Penjana Laporan Capaian</h1>
-                <p class="text-xs text-slate-300">Format Laporan Khas GitHub Markdown Layout</p>
+                <p class="text-xs text-slate-300">Format Laporan Khas GitHub Rendered Matrix</p>
             </div>
         </div>
         <div class="bg-blue-900/50 px-4 py-2 rounded-lg border border-blue-700/50 text-right">
             <span class="text-xs block text-slate-400 font-medium">Format Salin</span>
-            <span class="text-sm font-mono font-bold text-emerald-400">GITHUB MARKDOWN (.MD)</span>
+            <span class="text-sm font-mono font-bold text-amber-400">RAW GITHUB MARKDOWN</span>
         </div>
     </header>
 
     <main class="flex-1 max-w-4xl w-full mx-auto p-6 md:p-8 space-y-6">
         
-        <section class="bg-white rounded-2xl p-6 shadow-xs border border-slate-200/80">
-            <h2 class="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
-                <span>🐙</span> Optimum untuk GitHub Readme & Issues
+        <section class="bg-amber-50 rounded-2xl p-5 border border-amber-200 text-amber-900 space-y-2">
+            <h2 class="text-sm font-bold flex items-center gap-2">
+                ⚠️ PERINGATAN CARA PASTE DI GITHUB:
             </h2>
-            <p class="text-slate-600 text-sm leading-relaxed">
-                Butang <strong>"Salin Data"</strong> di bawah kini ditukar untuk menghasilkan kod jadual Markdown lengkap berserta blok warna logik. Apabila anda melakukan <em>paste</em> ke dalam editor GitHub, ia akan bertukar menjadi jadual yang kemas, bergaris, dan tersusun.
+            <p class="text-xs leading-relaxed">
+                Jangan letakkan teks yang disalin di dalam simbol code block (seperti <code class="bg-amber-100 px-1 py-0.5 rounded text-rose-700">```</code>). Pastikan anda tampal secara terus pada halaman kosong kosong biasa di GitHub, kemudian lihat hasilnya di tab <strong>Preview</strong>.
             </p>
         </section>
 
@@ -63,14 +63,14 @@
                         <input type="file" id="uploadFile" accept=".xlsx, .xls, .csv" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         <div class="space-y-1 pointer-events-none">
                             <span class="text-2xl block">📥</span>
-                            <p class="text-xs font-medium text-slate-600 group-hover:text-blue-600" id="fileNameDisplay">Pilih fail atau seret ke sini</p>
+                            <p class="text-xs font-medium text-slate-600 group-hover:text-blue-600" id="fileNameDisplay">Pilih fail mentah</p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
                     <button id="processBtn" disabled class="bg-slate-300 text-slate-500 font-bold px-6 py-2 rounded-xl cursor-not-allowed transition-all flex items-center gap-2 text-sm shadow-xs">
-                        <span>⚙️</span> Tapis Kod GitHub MD
+                        <span>⚙️</span> Proses Data Fail
                     </button>
                     <button id="downloadBtn" style="display:none;" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2 rounded-xl transition-all flex items-center gap-2 text-sm shadow-md shadow-emerald-600/10">
                         <span>📊</span> Muat Turun Master Excel
@@ -79,13 +79,13 @@
             </div>
 
             <div class="bg-blue-950 text-white rounded-2xl p-6 shadow-md flex flex-col justify-between relative overflow-hidden">
-                <div class="absolute -right-6 -bottom-6 text-9xl text-blue-900/20 pointer-events-none font-bold select-none">GIT</div>
+                <div class="absolute -right-6 -bottom-6 text-9xl text-blue-900/20 pointer-events-none font-bold select-none">GRID</div>
                 <div class="space-y-4 z-10">
-                    <h3 class="text-xs font-bold tracking-wider text-blue-300 uppercase">Status Pilihan Semasa</h3>
+                    <h3 class="text-xs font-bold tracking-wider text-blue-300 uppercase">Status Pilihan</h3>
                     <div class="space-y-2">
                         <div class="text-xs border-b border-blue-900 pb-1.5">
                             <span class="text-slate-400 block mb-0.5">IC Aktif Ditapis:</span>
-                            <span class="font-mono font-bold text-amber-300 text-[11px] block leading-relaxed whitespace-pre-line" id="statFilteredIC">Tiada Pilihan</span>
+                            <span class="font-mono font-bold text-amber-300 text-[11px] block leading-relaxed" id="statFilteredIC">Tiada Pilihan</span>
                         </div>
                         <div class="flex justify-between text-xs border-b border-blue-900 pb-1">
                             <span class="text-slate-400">Total Rekod Sepadan:</span>
@@ -103,7 +103,7 @@
     </main>
 
     <footer class="bg-white border-t border-slate-200 text-center py-4 text-xs text-slate-400 mt-auto">
-        Format Struktur Khas Markdown Teroptimum untuk GitHub Enterprise
+        Format Struktur Khas Markdown Teroptimum untuk GitHub Layouts
     </footer>
 
     <script>
@@ -253,7 +253,7 @@
                             <h3 class="text-sm font-bold text-slate-900">RINGKASAN CAPAIAN IGFMAS - ${monthTitle}</h3>
                         </div>
                         <button onclick="copyMonthToMarkdown(${m}, '${monthTitle}')" class="bg-slate-900 hover:bg-black text-white font-semibold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all cursor-pointer shadow-xs">
-                            <span>🐙</span> Salin Kod GitHub MD (${monthTitle})
+                            <span>🐙</span> Salin Laporan GitHub MD
                         </button>
                     </div>
                     
@@ -275,7 +275,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <p id="feedback-month-${m}" class="text-xs text-blue-600 font-bold text-right hidden">✓ Kod jadual GitHub Markdown berjaya disalin! Sila tempek (Ctrl+V) dalam fail .md anda.</p>
+                    <p id="feedback-month-${m}" class="text-xs text-blue-600 font-bold text-right hidden">✓ Kod disalin! Lepas paste di GitHub, pastikan klik tab 'Preview' untuk lihat jadual bergrid penuh.</p>
                 `;
 
                 tablesContainer.appendChild(card);
@@ -310,18 +310,18 @@
             }
 
             document.getElementById('downloadBtn').style.display = 'inline-flex';
-            document.getElementById('statusIndicator').innerText = "Selesai ditukarkan kepada format GitHub.";
+            document.getElementById('statusIndicator').innerText = "Data sedia disalin.";
         });
 
-        // FUNGSI INJEKSI JADUAL MARKDOWN KHAS UNTUK GITHUB
+        // FUNGSI UTAMA SALINAN JADUAL GITHUB DENGAN LAYOUT AUTOMATIK
         function copyMonthToMarkdown(monthNum, monthTitle) {
             const dataMap = monthlyResultsGlobal[monthNum];
             if(!dataMap) return;
 
+            // Membina format jadual Markdown dengan penjajaran khusus (:---) agar ia di-render menjadi grid
             let mdText = `### 📊 RINGKASAN CAPAIAN IGFMAS - ${monthTitle}\n\n`;
-            mdText += `> 🔍 **Maklumat Tapisan ID Pengguna:** \`${activeFilterLabels}\`\n\n`;
+            mdText += `> 🔍 **Tapis IC:** \`${activeFilterLabels}\` | **Bulan/Tahun:** \`${monthTitle}\`\n\n`;
             
-            // Cipta format GFM (GitHub Flavored Markdown) Headers
             mdText += `| Jenis Permohonan | 10 | 20 | 22 | 42 | 80 | 84 | **Jumlah** |\n`;
             mdText += `| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n`;
 
@@ -330,7 +330,6 @@
             targetApplicationTypes.forEach(type => {
                 const map = dataMap[type];
                 
-                // Gunakan emoji untuk visualisasi warna yang menarik di GitHub Markdown
                 let cellTotalStr = map.total > 0 ? `🔹 **${map.total}**` : `0`;
                 let cell80Str = map[80] > 0 ? `🟢 **${map[80]}**` : `0`;
                 let cell84Str = map[84] > 0 ? `🔴 **${map[84]}**` : `0`;
@@ -342,10 +341,8 @@
                 colTotals.total += map.total;
             });
 
-            // Tambah baris penutup jumlah besar (Grand Totals)
             mdText += `| **JUMLAH KESELURUHAN** | **${colTotals[10]}** | **${colTotals[20]}** | **${colTotals[22]}** | **${colTotals[42]}** | 🟢 **${colTotals[80]}** | 🔴 **${colTotals[84]}** | 🏆 **${colTotals.total}** |\n`;
 
-            // Hantar kod MD ke clipboard komputer
             navigator.clipboard.writeText(mdText).then(() => {
                 const feedback = document.getElementById(`feedback-month-${monthNum}`);
                 feedback.classList.remove('hidden');
@@ -378,7 +375,7 @@
                 const ws = XLSX.utils.aoa_to_sheet(wsData);
                 XLSX.utils.book_append_sheet(wb, ws, `Laporan ${monthTitle.split(' ')[0]}`);
             }
-            XLSX.writeFile(wb, "Laporan_iGFMAS_GitHub_Format.xlsx");
+            XLSX.writeFile(wb, "Laporan_iGFMAS_Bulanan_2026.xlsx");
         });
     </script>
 </body>
