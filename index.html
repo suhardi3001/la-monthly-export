@@ -3,54 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penjana Laporan iGFMAS (GitHub Layout Fix)</title>
-    <script src="[https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4](https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4)"></script>
-    <script src="[https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js](https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js)"></script>
+    <title>Papan Pemuka Ringkasan Capaian iGFMAS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
 
-    <header class="bg-blue-950 text-white shadow-md py-4 px-6 flex justify-between items-center">
-        <div class="flex items-center space-x-3">
-            <div class="bg-blue-600 p-2 rounded-lg text-xl font-bold tracking-wider">iG</div>
+    <header class="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white shadow-xl py-5 px-8 flex justify-between items-center border-b-4 border-blue-600">
+        <div class="flex items-center space-x-4">
+            <div class="bg-blue-600 text-white p-2.5 rounded-xl text-2xl font-black tracking-wider shadow-md shadow-blue-500/30">iG</div>
             <div>
-                <h1 class="text-lg font-bold leading-tight">Sistem Penjana Laporan Capaian</h1>
-                <p class="text-xs text-slate-300">Format Laporan Khas GitHub Rendered Matrix</p>
+                <h1 class="text-xl font-extrabold tracking-tight">Sistem Penjana Laporan Capaian</h1>
+                <p class="text-xs text-slate-400 font-medium">Format Standard Laporan LA-2026 (GitHub Optimized Layout)</p>
             </div>
         </div>
-        <div class="bg-blue-900/50 px-4 py-2 rounded-lg border border-blue-700/50 text-right">
-            <span class="text-xs block text-slate-400 font-medium">Format Salin</span>
-            <span class="text-sm font-mono font-bold text-amber-400">RAW GITHUB MARKDOWN</span>
+        <div class="bg-blue-950/80 px-4 py-2 rounded-xl border border-blue-800/60 text-right shadow-inner">
+            <span class="text-[10px] block text-slate-400 font-bold uppercase tracking-wider">Mod Salin Laporan</span>
+            <span class="text-sm font-mono font-bold text-emerald-400">JADUAL GITHUB MD (.MD)</span>
         </div>
     </header>
 
-    <main class="flex-1 max-w-4xl w-full mx-auto p-6 md:p-8 space-y-6">
+    <main class="flex-1 max-w-5xl w-full mx-auto p-6 md:p-8 space-y-6">
         
-        <section class="bg-amber-50 rounded-2xl p-5 border border-amber-200 text-amber-900 space-y-2">
-            <h2 class="text-sm font-bold flex items-center gap-2">
-                ⚠️ PERINGATAN CARA PASTE DI GITHUB:
+        <section class="bg-white rounded-2xl p-6 shadow-md border-l-8 border-blue-600">
+            <h2 class="text-lg font-bold text-slate-900 mb-1 flex items-center gap-2">
+                <span>🐙</span> Cara Guna Untuk GitHub Issues / Readme
             </h2>
-            <p class="text-xs leading-relaxed">
-                Jangan letakkan teks yang disalin di dalam simbol code block (seperti <code class="bg-amber-100 px-1 py-0.5 rounded text-rose-700">```</code>). Pastikan anda tampal secara terus pada halaman kosong kosong biasa di GitHub, kemudian lihat hasilnya di tab <strong>Preview</strong>.
+            <p class="text-slate-600 text-sm leading-relaxed">
+                Muat naik fail <code class="bg-slate-100 px-1.5 py-0.5 rounded text-rose-600 font-mono text-xs font-bold">zrbc007</code> anda, pilih IC yang mahu ditapis, dan tekan butang proses. Klik butang <strong>"Salin Laporan GitHub MD"</strong>, kemudian tampal terus di dalam ruangan komen GitHub (bukan di dalam code block) dan klik tab <strong>Preview</strong> untuk melihat jadual bergrid yang cantik.
             </p>
         </section>
 
         <section class="grid md:grid-cols-3 gap-6">
-            <div class="md:col-span-2 bg-white rounded-2xl p-6 shadow-xs border border-slate-200/80 space-y-5">
+            <div class="md:col-span-2 bg-white rounded-2xl p-6 shadow-md space-y-5">
                 
                 <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2.5">Pilih IC Pemohon Untuk Ditapis:</label>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Pilih IC Pemohon Untuk Ditapis:</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all select-none has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50/40">
+                        <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-200 hover:bg-slate-50 cursor-pointer transition-all select-none group">
                             <input type="checkbox" id="tickSUHARDI" value="810130065369" checked class="w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500" />
                             <div>
-                                <span class="text-xs font-bold text-slate-900 block">SUHARDI BIN ALIAS</span>
+                                <span class="text-xs font-bold text-slate-900 block group-hover:text-blue-600 transition-colors">SUHARDI BIN ALIAS</span>
                                 <span class="text-xs font-mono text-slate-500">810130065369</span>
                             </div>
                         </label>
-                        <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-all select-none has-[:checked]:border-blue-500 has-[:checked]:bg-blue-50/40">
+                        <label class="flex items-center gap-3 p-3 rounded-xl border-2 border-slate-200 hover:bg-slate-50 cursor-pointer transition-all select-none group">
                             <input type="checkbox" id="tickJEFRISANI" value="810104065293" class="w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500" />
                             <div>
-                                <span class="text-xs font-bold text-slate-900 block">JEFRISANI BIN MOKHTAR</span>
+                                <span class="text-xs font-bold text-slate-900 block group-hover:text-blue-600 transition-colors">JEFRISANI BIN MOKHTAR</span>
                                 <span class="text-xs font-mono text-slate-500">810104065293</span>
                             </div>
                         </label>
@@ -58,42 +58,42 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-1">Muat Naik Fail Mentah (zrbc007-jan.xlsx)</label>
-                    <div class="relative group border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-xl p-4 transition-all text-center bg-slate-50/50 hover:bg-blue-50/30">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Muat Naik Fail Mentah (.xlsx / .csv)</label>
+                    <div class="relative group border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-xl p-5 transition-all text-center bg-slate-50/50 hover:bg-blue-50/30">
                         <input type="file" id="uploadFile" accept=".xlsx, .xls, .csv" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                         <div class="space-y-1 pointer-events-none">
-                            <span class="text-2xl block">📥</span>
-                            <p class="text-xs font-medium text-slate-600 group-hover:text-blue-600" id="fileNameDisplay">Pilih fail mentah</p>
+                            <span class="text-3xl block">📥</span>
+                            <p class="text-xs font-bold text-slate-600 group-hover:text-blue-600 transition-colors" id="fileNameDisplay">Klik untuk pilih fail zrbc007-jan</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
-                    <button id="processBtn" disabled class="bg-slate-300 text-slate-500 font-bold px-6 py-2 rounded-xl cursor-not-allowed transition-all flex items-center gap-2 text-sm shadow-xs">
-                        <span>⚙️</span> Proses Data Fail
+                <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+                    <button id="processBtn" disabled class="bg-slate-300 text-slate-500 font-bold px-6 py-2.5 rounded-xl cursor-not-allowed transition-all flex items-center gap-2 text-xs uppercase tracking-wider shadow-sm">
+                        ⚙️ Proses Data Fail
                     </button>
-                    <button id="downloadBtn" style="display:none;" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2 rounded-xl transition-all flex items-center gap-2 text-sm shadow-md shadow-emerald-600/10">
-                        <span>📊</span> Muat Turun Master Excel
+                    <button id="downloadBtn" style="display:none;" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl transition-all flex items-center gap-2 text-xs uppercase tracking-wider shadow-md shadow-emerald-600/20">
+                        📊 Fail Master Excel
                     </button>
                 </div>
             </div>
 
-            <div class="bg-blue-950 text-white rounded-2xl p-6 shadow-md flex flex-col justify-between relative overflow-hidden">
-                <div class="absolute -right-6 -bottom-6 text-9xl text-blue-900/20 pointer-events-none font-bold select-none">GRID</div>
+            <div class="bg-gradient-to-br from-slate-900 to-blue-950 text-white rounded-2xl p-6 shadow-lg flex flex-col justify-between relative overflow-hidden">
+                <div class="absolute -right-6 -bottom-6 text-9xl text-blue-900/10 pointer-events-none font-bold select-none">MTH</div>
                 <div class="space-y-4 z-10">
-                    <h3 class="text-xs font-bold tracking-wider text-blue-300 uppercase">Status Pilihan</h3>
-                    <div class="space-y-2">
-                        <div class="text-xs border-b border-blue-900 pb-1.5">
-                            <span class="text-slate-400 block mb-0.5">IC Aktif Ditapis:</span>
+                    <h3 class="text-xs font-bold tracking-wider text-blue-400 uppercase">Status Maklumat Ditapis</h3>
+                    <div class="space-y-2.5">
+                        <div class="text-xs border-b border-blue-900/60 pb-2">
+                            <span class="text-slate-400 block mb-1 text-[10px] font-bold uppercase tracking-wider">IC Yang Ditapis:</span>
                             <span class="font-mono font-bold text-amber-300 text-[11px] block leading-relaxed" id="statFilteredIC">Tiada Pilihan</span>
                         </div>
-                        <div class="flex justify-between text-xs border-b border-blue-900 pb-1">
+                        <div class="flex justify-between text-xs border-b border-blue-900/60 pb-1.5">
                             <span class="text-slate-400">Total Rekod Sepadan:</span>
-                            <span class="font-mono font-bold text-slate-200" id="statTotalRows">-</span>
+                            <span class="font-mono font-bold text-slate-200 text-sm" id="statTotalRows">-</span>
                         </div>
                     </div>
                 </div>
-                <div id="statusIndicator" class="mt-4 bg-blue-900/60 text-slate-300 text-center text-xs py-2 rounded-lg border border-blue-800/60 font-medium">
+                <div id="statusIndicator" class="mt-4 bg-blue-900/40 text-slate-300 text-center text-xs py-2 rounded-xl border border-blue-800/40 font-medium">
                     Sila muat naik fail untuk bermula
                 </div>
             </div>
@@ -102,8 +102,8 @@
         <section id="monthlyTablesContainer" class="space-y-8"></section>
     </main>
 
-    <footer class="bg-white border-t border-slate-200 text-center py-4 text-xs text-slate-400 mt-auto">
-        Format Struktur Khas Markdown Teroptimum untuk GitHub Layouts
+    <footer class="bg-white border-t border-slate-200 text-center py-4 text-xs text-slate-400 font-medium mt-auto">
+        Jabatan Perakaunan Kementerian Pendidikan Malaysia • 2026
     </footer>
 
     <script>
@@ -144,8 +144,8 @@
                     rawWorkbookData = XLSX.read(data, {type: 'array', cellDates: true});
                     const procBtn = document.getElementById('processBtn');
                     procBtn.disabled = false;
-                    procBtn.className = "bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded-xl cursor-pointer transition-all flex items-center gap-2 text-sm shadow-md shadow-blue-600/10";
-                    document.getElementById('statusIndicator').innerText = "Fail sedia diproses.";
+                    procBtn.className = "bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2.5 rounded-xl cursor-pointer transition-all text-xs uppercase tracking-wider shadow-md shadow-blue-600/20";
+                    document.getElementById('statusIndicator').innerText = "Fail bersedia.";
                 } catch(err) {
                     alert("Ralat membaca fail!");
                 }
@@ -244,15 +244,15 @@
 
                 const monthTitle = monthNamesSummary[m];
                 const card = document.createElement('div');
-                card.className = "bg-white rounded-2xl p-6 shadow-xs border border-slate-200/80 space-y-4 overflow-hidden";
+                card.className = "bg-white rounded-2xl p-6 shadow-md border border-slate-200 space-y-4 overflow-hidden";
                 
                 card.innerHTML = `
-                    <div class="flex justify-between items-center flex-wrap gap-2">
+                    <div class="flex justify-between items-center flex-wrap gap-2 pb-2 border-b border-slate-100">
                         <div class="flex items-center gap-2">
-                            <span class="w-3 h-3 rounded-full bg-blue-700"></span>
-                            <h3 class="text-sm font-bold text-slate-900">RINGKASAN CAPAIAN IGFMAS - ${monthTitle}</h3>
+                            <span class="w-3 h-3 rounded-full bg-blue-700 shadow-sm"></span>
+                            <h3 class="text-sm font-extrabold text-slate-900 tracking-tight">RINGKASAN CAPAIAN IGFMAS - ${monthTitle}</h3>
                         </div>
-                        <button onclick="copyMonthToMarkdown(${m}, '${monthTitle}')" class="bg-slate-900 hover:bg-black text-white font-semibold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all cursor-pointer shadow-xs">
+                        <button onclick="copyMonthToMarkdown(${m}, '${monthTitle}')" class="bg-slate-900 hover:bg-black text-white font-bold text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all cursor-pointer shadow-md">
                             <span>🐙</span> Salin Laporan GitHub MD
                         </button>
                     </div>
@@ -261,21 +261,21 @@
                         <table class="w-full text-left border-collapse text-xs">
                             <thead>
                                 <tr class="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold font-mono">
-                                    <th class="p-2.5 bg-slate-100/50">Jenis Permohonan</th>
-                                    <th class="p-2.5 text-center">10</th>
-                                    <th class="p-2.5 text-center">20</th>
-                                    <th class="p-2.5 text-center">22</th>
-                                    <th class="p-2.5 text-center">42</th>
-                                    <th class="p-2.5 text-center">80</th>
-                                    <th class="p-2.5 text-center">84</th>
-                                    <th class="p-2.5 text-center bg-slate-100/50 font-bold text-slate-900">Jumlah</th>
+                                    <th class="p-3 bg-slate-100/60 font-semibold w-1/3">Jenis Permohonan</th>
+                                    <th class="p-3 text-center font-semibold">10</th>
+                                    <th class="p-3 text-center font-semibold">20</th>
+                                    <th class="p-3 text-center font-semibold">22</th>
+                                    <th class="p-3 text-center font-semibold">42</th>
+                                    <th class="p-3 text-center font-semibold">80</th>
+                                    <th class="p-3 text-center font-semibold">84</th>
+                                    <th class="p-3 text-center bg-slate-100/60 font-bold text-slate-950">Jumlah</th>
                                 </tr>
                             </thead>
                             <tbody id="body-month-${m}" class="divide-y divide-slate-100 font-medium text-slate-600">
                             </tbody>
                         </table>
                     </div>
-                    <p id="feedback-month-${m}" class="text-xs text-blue-600 font-bold text-right hidden">✓ Kod disalin! Lepas paste di GitHub, pastikan klik tab 'Preview' untuk lihat jadual bergrid penuh.</p>
+                    <p id="feedback-month-${m}" class="text-xs text-blue-600 font-bold text-right hidden">✓ Kod disalin! Sila terus paste (Ctrl+V) di GitHub ruangan teks kosong.</p>
                 `;
 
                 tablesContainer.appendChild(card);
@@ -286,14 +286,15 @@
                 targetApplicationTypes.forEach(type => {
                     const meta = monthlyResultsGlobal[m][type];
                     const tr = document.createElement('tr');
+                    tr.className = "hover:bg-slate-50/50 transition-all";
                     
-                    let cellsHtml = `<td class="p-2.5 font-semibold text-slate-800 bg-slate-50/20">${type}</td>`;
+                    let cellsHtml = `<td class="p-3 font-semibold text-slate-800 bg-slate-50/30">${type}</td>`;
                     statuses.forEach(status => {
                         const val = meta[status];
-                        cellsHtml += `<td class="p-2.5 text-center font-mono">${val}</td>`;
+                        cellsHtml += `<td class="p-3 text-center font-mono ${val > 0 ? 'text-blue-600 font-bold bg-blue-50/20' : 'text-slate-300'}">${val}</td>`;
                         columnGrandTotals[status] += val;
                     });
-                    cellsHtml += `<td class="p-2.5 text-center font-mono bg-slate-50/40 font-bold text-slate-900">${meta.total}</td>`;
+                    cellsHtml += `<td class="p-3 text-center font-mono bg-slate-100/50 font-bold text-slate-900">${meta.total}</td>`;
                     columnGrandTotals.grand += meta.total;
                     
                     tr.innerHTML = cellsHtml;
@@ -301,24 +302,22 @@
                 });
 
                 const totalTr = document.createElement('tr');
-                totalTr.className = "bg-slate-100/70 border-t-2 border-slate-200 text-slate-900 font-bold font-mono";
-                let totalCellsHtml = `<td class="p-2.5">Jumlah</td>`;
-                statuses.forEach(status => { totalCellsHtml += `<td class="p-2.5 text-center">${columnGrandTotals[status]}</td>`; });
-                totalCellsHtml += `<td class="p-2.5 text-center text-blue-800">${columnGrandTotals.grand}</td>`;
+                totalTr.className = "bg-slate-100 font-bold font-mono text-slate-950 border-t-2 border-slate-300";
+                let totalCellsHtml = `<td class="p-3">Jumlah Keseluruhan</td>`;
+                statuses.forEach(status => { totalCellsHtml += `<td class="p-3 text-center bg-slate-100/30">${columnGrandTotals[status]}</td>`; });
+                totalCellsHtml += `<td class="p-3 text-center text-blue-700 bg-slate-200/50">${columnGrandTotals.grand}</td>`;
                 totalTr.innerHTML = totalCellsHtml;
                 tbody.appendChild(totalTr);
             }
 
             document.getElementById('downloadBtn').style.display = 'inline-flex';
-            document.getElementById('statusIndicator').innerText = "Data sedia disalin.";
+            document.getElementById('statusIndicator').innerText = "Proses Selesai.";
         });
 
-        // FUNGSI UTAMA SALINAN JADUAL GITHUB DENGAN LAYOUT AUTOMATIK
         function copyMonthToMarkdown(monthNum, monthTitle) {
             const dataMap = monthlyResultsGlobal[monthNum];
             if(!dataMap) return;
 
-            // Membina format jadual Markdown dengan penjajaran khusus (:---) agar ia di-render menjadi grid
             let mdText = `### 📊 RINGKASAN CAPAIAN IGFMAS - ${monthTitle}\n\n`;
             mdText += `> 🔍 **Tapis IC:** \`${activeFilterLabels}\` | **Bulan/Tahun:** \`${monthTitle}\`\n\n`;
             
@@ -350,7 +349,6 @@
             });
         }
 
-        // DOWNLOAD EXCEL TRADISIONAL
         document.getElementById('downloadBtn').addEventListener('click', function() {
             const wb = XLSX.utils.book_new();
             for(let m = 1; m <= 12; m++) {
